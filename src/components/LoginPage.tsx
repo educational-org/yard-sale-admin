@@ -1,25 +1,45 @@
 import { LockClosedIcon } from '@heroicons/react/24/solid';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useAuth } from '@hooks/useAuth';
+import Modal from '@common/Modal';
+
 
 export default function LoginPage() {
-  const emailRef:any = useRef(); 
-  const passRef:any = useRef();
-  const auth:any = useAuth();
+  const [open, setOpen] = useState(false); //useState del modal
+  const emailRef: any = useRef();
+  const passRef: any = useRef();
+  const auth: any = useAuth();
 
-  const submitHandler = (event:any)=>{
+  const submitHandler = (event: any) => {
+
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passRef.current.value;
-    
-    auth.signIn(email,password).then((res:any)=>{
+
+    auth.signIn(email, password).then((res: any) => {
+      console.log(res)
       console.log('Login Success');
 
+    }).catch((err: any) => {
+      console.log(err)
+      setOpen(true)
     })
   }
 
   return (
     <>
+      <Modal title={"Incorrect Credentials"} open={open} setOpen={setOpen}>
+        <div className='flex flex-col items-start'>
+          <p className='text-sm mb-6'>Verify your username and password to get access to the app.</p>
+          <button
+            type="button"
+            onClick={()=>{setOpen(false)}}
+            className="self-start inline-flex items-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          >
+            Close and try again
+          </button>
+        </div>
+      </Modal>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-// import Cookie from 'js-cookie';
+import Cookie from "js-cookie";
 import Axios from 'axios';
 import endPoints from '@services/api';
 
@@ -25,7 +25,14 @@ function useProvideAuth(){ //función para envíar los datos al servidor
     };
     const  signIn = async (email:any,password:any)=>{
         const {data:access_token} = await Axios.post(endPoints.auth.login,{email,password},options);
-        console.log(access_token);   
+        if(access_token){
+            const token = access_token.access_token;
+            Cookie.set('token',token,{expires:5});
+
+            Axios.defaults.headers.Authorization = `Bearer ${token}`;//Enviado token para ser ejecutado al moment de hacer GET y comparar el toekn
+            const {data:user}= await Axios.get(endPoints.auth.profile)
+            setUser(user);
+        }
     }
     return {
         user,
