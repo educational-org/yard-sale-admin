@@ -23,6 +23,7 @@
       "@containers/*":["containers/*"],
       "@templates/*":["templates/*"],
       "@hooks/*":["hooks/*"],
+      "@services/*":["services/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
