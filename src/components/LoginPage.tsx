@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 import Modal from '@common/Modal';
 
-
 export default function LoginPage() {
   const [open, setOpen] = useState(false); //useState del modal
   const router = useRouter();
@@ -14,28 +13,30 @@ export default function LoginPage() {
   const auth: any = useAuth();
 
   const submitHandler = (event: any) => {
-
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passRef.current.value;
 
-    auth.signIn(email, password).then(() => {
-      router.push("/dashboard");
-
-    }).catch((err: any) => {
-      console.log(err)
-      setOpen(true)
-    })
-  }
+    auth.signIn(email, password)
+      .then(() => {
+        router.push('/dashboard');
+      })
+      .catch((err: any) => {
+        console.log(err);
+        setOpen(true);
+      });
+  };
 
   return (
     <>
-      <Modal title={"Incorrect Credentials"} open={open} setOpen={setOpen}>
-        <div className='flex flex-col items-start'>
-          <p className='text-sm mb-6'>Verify your username and password to get access to the app.</p>
+      <Modal title={'Incorrect Credentials'} open={open} setOpen={setOpen}>
+        <div className="flex flex-col items-start">
+          <p className="text-sm mb-6">Verify your username and password to get access to the app.</p>
           <button
             type="button"
-            onClick={()=>{setOpen(false)}}
+            onClick={() => {
+              setOpen(false);
+            }}
             className="self-start inline-flex items-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           >
             Close and try again

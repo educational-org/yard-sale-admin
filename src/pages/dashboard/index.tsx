@@ -1,39 +1,39 @@
-import useFetch from "@hooks/useFetch";
-import endPoints from "@services/api";
-import Pagination from "@common/Pagination";
-import { useState } from "react";
+import useFetch from '@hooks/useFetch';
+import endPoints from '@services/api';
+import Pagination from '@common/Pagination';
+import { useState } from 'react';
 import { Chart } from '@common/Chart';
+import MainLayout from '@layout/MainLayout';
 
-const PRODUCT_LIMIT =30;
+const PRODUCT_LIMIT = 30;
 const PRODUCT_OFFSET = 30;
 
-export default function Dashboard() {
+export const Dashboard = () => {
   const [pagination, setPagination] = useState(PRODUCT_OFFSET); //Inicialización de paginación
   //Obteniendo productos-->>
-  const {data:products}:any = useFetch(endPoints.products.getProducts(PRODUCT_LIMIT,(PRODUCT_OFFSET+pagination)));
-  
-  const categoryNames = products?.map((product:any)=>product.category);
-  const categoryCount = categoryNames?.map((category:any)=>category.name);
+  const { data: products }: any = useFetch(endPoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET + pagination));
+
+  const categoryNames = products?.map((product: any) => product.category);
+  const categoryCount = categoryNames?.map((category: any) => category.name);
   //con el countOccurrences hacemos un reduce al array devolviendo la cantidad de veces que cada uno se genera
-  const countOccurrences = (arr:any)=>arr.reduce((prev:any,curr:any)=>((prev[curr] = ++prev[curr] || 1),prev),{});
-  
-  const data = { //data de producutos para chart
-    datasets:[{
-      label:'Categories',
-      data:countOccurrences(categoryCount),
-      borderWidth:2,
-      backgroundColor:['#ffbb11','#c0c0c0','#50AF95','#f3ba2f','#2a71d0']
-    }]
-  }
-  
+  const countOccurrences = (arr: any) => arr.reduce((prev: any, curr: any) => ((prev[curr] = ++prev[curr] || 1), prev), {});
+
+  const data = {
+    //data de producutos para chart
+    datasets: [
+      {
+        label: 'Categories',
+        data: countOccurrences(categoryCount),
+        borderWidth: 2,
+        backgroundColor: ['#ffbb11', '#c0c0c0', '#50AF95', '#f3ba2f', '#2a71d0'],
+      },
+    ],
+  };
+
   return (
-    <>
+    <MainLayout>
       <Chart className="mb-8 mt-2" chartData={data} />
-      <Pagination 
-        pagination={pagination} 
-        setPagination={setPagination}
-        PRODUCT_OFFSET={PRODUCT_OFFSET}
-      />
+      <Pagination pagination={pagination} setPagination={setPagination} PRODUCT_OFFSET={PRODUCT_OFFSET} />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -62,9 +62,9 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {products?.map((product:any) => (
+                  {products?.map((product: any) => (
                     // Se  genera un ID UNICO STRING
-                    <tr key={`Product-item-${product.title}`}> 
+                    <tr key={`Product-item-${product.title}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
@@ -83,10 +83,14 @@ export default function Dashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                          Edit
+                        </a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Delete</a>
+                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                          Delete
+                        </a>
                       </td>
                     </tr>
                   ))}
@@ -96,7 +100,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      
-    </>
+    </MainLayout>
   );
-}
+};
+export default Dashboard;

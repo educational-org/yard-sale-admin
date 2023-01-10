@@ -26,6 +26,6 @@
       "@services/*":["services/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/dashboard/edit/[id].tsx"],
   "exclude": ["node_modules"]
 }

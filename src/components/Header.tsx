@@ -3,11 +3,11 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@hooks/useAuth';
+import { useRouter } from 'next/router';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Productos', href: '/dashboard/products/', current: false },
-  { name: 'Ventas', href: '#', current: false },
+  { name: 'Dashboard', href: '/dashboard/', current: true },
+  { name: 'Productos', href: '/dashboard/products', current: false },
 ];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -15,18 +15,24 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ];
 
-function classNames(...classes:any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Header() {
-  const auth:any = useAuth();
-
+  const router = useRouter();
+  const auth: any = useAuth();
   const userData = {
     name: auth?.user?.name,
     email: auth?.user?.mail,
-    imageUrl: `https://ui-avatars.com/api/?name=${auth?.user?.name}`,
+    imageUrl: auth?.user?.avatar,
   };
+
+  const logOutHandler = ()=>{
+    auth.logOut()
+    router.push('/')
+  }
+
 
   return (
     <>
@@ -63,7 +69,6 @@ export default function Header() {
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
-
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
                       <div>
@@ -82,15 +87,9 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <a href={item.href} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                                  {item.name}
-                                </a>
-                              )}
-                            </Menu.Item>
-                          ))}
+                          <button onClick={logOutHandler} className="block px-4 py-2 text-sm text-gray-700">
+                            Log Out
+                          </button>
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -105,7 +104,6 @@ export default function Header() {
                 </div>
               </div>
             </div>
-
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (

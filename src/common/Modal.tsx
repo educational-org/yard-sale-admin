@@ -2,7 +2,7 @@ import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 
-export default function Modal({ open, setOpen, title, children }:any) {
+export default function Modal({ open, setOpen, title, children }: any) {
   const cancelButtonRef = useRef(null);
 
   return (
