@@ -8,6 +8,7 @@ const useFetch = (endPoint: string) => {
     const response = await Axios.get(endPoint);
     setData(response.data);
   }
+
   useEffect(() => {
     try {
       fetchData();

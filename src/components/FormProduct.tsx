@@ -10,7 +10,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const formData: any = new FormData(formRef.current);
-    let data = {
+    const data = {
       title: formData.get('title'),
       price: parseInt(formData.get('price')),
       description: formData.get('description'),
@@ -20,57 +20,57 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
 
     if (product) {
       uploadImage(formData.get('images')) //CREACIÓN DE IMAGEN
-      .then((res)=>{
-        data.images = [res.location]
-        updateProduct(product.id, data) //ACTUALIZACIÓN DE PRODUCTO
         .then((res) => {
-          router.push('/dashboard/products/');
+          data.images = [res.location];
+          updateProduct(product.id, data) //ACTUALIZACIÓN DE PRODUCTO
+            .then(() => {
+              router.push('/dashboard/products/');
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         })
         .catch((error) => {
           console.error(error);
         });
-      })
-      .catch((error)=>{
-        console.error(error)
-      })
-    }else{
+    } else {
       uploadImage(formData.get('images')) //CREACIÓN DE LA IMAGEN
-      .then((res)=>{
-        data.images = [res.location]
-        addProduct(data) //DESPUÉS DE AGREGAR NUEVA IMAGEN, SE AGREGA EL PRODUCTO NUEVO
-        .then(() => {
-          setAlert({
-            active: true,
-            message: 'Product added successfully',
-            type: 'success',
-            autoClose: false,
-          });
-          setOpen(false);
+        .then((res) => {
+          data.images = [res.location];
+          addProduct(data) //DESPUÉS DE AGREGAR NUEVA IMAGEN, SE AGREGA EL PRODUCTO NUEVO
+            .then(() => {
+              setAlert({
+                active: true,
+                message: 'Product added successfully',
+                type: 'success',
+                autoClose: false,
+              });
+              setOpen(false);
+            })
+            .catch((err) => {
+              console.error(err);
+              setAlert({
+                active: true,
+                message: err.message,
+                type: 'error',
+                autoClose: false,
+              });
+              setOpen(false);
+            });
         })
-        .catch((err) => {
-          console.error(err);
-          setAlert({
-            active: true,
-            message: err.message,
-            type: 'error',
-            autoClose: false,
-          });
-          setOpen(false);
+        .catch((error) => {
+          console.error(error);
         });
-      })
-      .catch((error)=>{
-        console.error(error)
-      })
     }
   };
 
-  useEffect(()=>{
-    if(product?.category?.id ){
-      setSelectCategory(false)
-    }else{
-      setSelectCategory(true)
+  useEffect(() => {
+    if (product?.category?.id) {
+      setSelectCategory(false);
+    } else {
+      setSelectCategory(true);
     }
-  },[product])
+  }, [product]);
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
       <div className="overflow-hidden">
@@ -149,12 +149,12 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                 id="description"
                 autoComplete="description"
                 rows={3}
-                className="form-textarea mt-1 block w-full mt-1 focus:ring-purple-400 focus:border-purple-400 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="form-textarea mt-1 block w-full focus:ring-purple-400 focus:border-purple-400 shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
             <div className="col-span-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Cover photo</label>
+                <span className="block text-sm font-medium text-gray-700">Cover photo</span>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
                     <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">

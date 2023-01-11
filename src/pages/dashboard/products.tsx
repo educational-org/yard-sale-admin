@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BriefcaseIcon, CalendarIcon, XCircleIcon, CurrencyDollarIcon, MapPinIcon, PlusIcon } from '@heroicons/react/20/solid';
+import { XCircleIcon, PlusIcon } from '@heroicons/react/20/solid';
 import Modal from '@common/Modal';
 import FormProduct from '@components/FormProduct';
 import Axios from 'axios';
@@ -9,6 +9,7 @@ import useAlert from '@hooks/useAlert';
 import Alert from '@common/Alert';
 import { deleteProduct } from '@services/api/products';
 import MainLayout from '@layout/MainLayout';
+import Image from 'next/image';
 
 const Products = () => {
   const [open, setOpen] = useState(false);
@@ -101,7 +102,7 @@ const Products = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src={product.images[0]} alt="" />
+                          <Image width={50} height={50} className="h-10 w-10 rounded-full" src={product.images[0]} alt="product image" />
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{product.title}</div>

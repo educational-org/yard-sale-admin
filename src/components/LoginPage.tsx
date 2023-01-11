@@ -3,10 +3,10 @@ import { useRef, useState } from 'react';
 import { useAuth } from '@hooks/useAuth';
 import { useRouter } from 'next/router';
 
-
 import Modal from '@common/Modal';
 import Image from 'next/image';
 import logo from '@logos/logo_yard_sale.svg';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [open, setOpen] = useState(false); //useState del modal
@@ -20,7 +20,8 @@ export default function LoginPage() {
     const email = emailRef.current.value;
     const password = passRef.current.value;
 
-    auth.signIn(email, password)
+    auth
+      .signIn(email, password)
       .then(() => {
         router.push('/dashboard');
       })
@@ -46,7 +47,7 @@ export default function LoginPage() {
           </button>
         </div>
       </Modal>
-      <div className="h-90v m-0 flex items-center justify-center">
+      <div className="login-container m-0 flex items-center justify-center">
         <div className="max-w-md w-full">
           <div>
             <Image className="mx-auto w-40" src={logo} alt="Workflow" />
@@ -94,9 +95,9 @@ export default function LoginPage() {
                 </label>
               </div>
               <div className="text-sm">
-                <a href="#" className="font-medium text-purple-400 hover:text-purple-400">
+                <Link href="/" className="font-medium text-purple-400 hover:text-purple-400">
                   Forgot your password?
-                </a>
+                </Link>
               </div>
             </div>
             <div>

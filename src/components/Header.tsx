@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import logo from '@logos/logo_yard_sale_white.svg';
 import Image from 'next/image';
 
-let navigation = [
+const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
   { name: 'Productos', href: '/dashboard/products', current: false },
 ];
@@ -28,7 +28,7 @@ export default function Header() {
       navigation[0].current = false;
       navigation[1].current = true;
     }
-  }, [router?.isReady]);
+  }, [router]);
 
   const userData = {
     name: auth?.user?.name,
@@ -81,7 +81,7 @@ export default function Header() {
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={userData.imageUrl} alt="" />
+                          <Image width={50} height={50} className="h-8 w-8 rounded-full" src={userData.imageUrl} alt="" />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -112,22 +112,22 @@ export default function Header() {
               </div>
             </div>
             <Disclosure.Panel className="md:hidden">
-            <div className="flex items-center my-6 px-5">
-              <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src={userData.imageUrl} alt="" />
+              <div className="flex items-center my-6 px-5">
+                <div className="flex-shrink-0">
+                  <Image width={50} height={50} className="h-10 w-10 rounded-full" src={userData.imageUrl} alt="" />
+                </div>
+                <div className="ml-3">
+                  <div className="text-base font-medium leading-none text-purple-400">{userData.name}</div>
+                  <div className="text-sm font-medium leading-none text-gray-400">{userData.email}</div>
+                </div>
+                <button
+                  type="button"
+                  className="ml-auto bg-purple-400 flex-shrink-0 p-1 rounded-full text-slate-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
               </div>
-              <div className="ml-3">
-                <div className="text-base font-medium leading-none text-purple-400">{userData.name}</div>
-                <div className="text-sm font-medium leading-none text-gray-400">{userData.email}</div>
-              </div>
-              <button
-                type="button"
-                className="ml-auto bg-purple-400 flex-shrink-0 p-1 rounded-full text-slate-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-              >
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (
                   <Disclosure.Button

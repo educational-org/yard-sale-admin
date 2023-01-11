@@ -29,18 +29,18 @@ const updateProduct = async (id: any, body: any) => {
   return res.data;
 };
 
-const uploadImage = async (image:any)=>{
+const uploadImage = async (image: any) => {
   const body = {
-    "file":image
-  }
-  const config ={
-    headers:{
-      'Content-Type' : 'multipart/form-data',
-      accept:'*/*'
-    }
-  }
-  const res = await Axios.post(endPoints.files.postFiles,body,config);
-  return res.data
-}
+    file: image,
+  };
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      accept: '*/*',
+    },
+  };
+  const res = await Axios.post(endPoints.files.postFiles, body, config);
+  return res.data;
+};
 
 export { addProduct, deleteProduct, updateProduct, uploadImage };

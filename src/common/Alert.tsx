@@ -1,5 +1,4 @@
 import { XCircleIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
 
 const Alert = ({ alert, handleClose }: any) => {
   const bgColor = () => {

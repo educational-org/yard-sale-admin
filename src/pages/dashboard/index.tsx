@@ -4,6 +4,7 @@ import Pagination from '@common/Pagination';
 import { useState } from 'react';
 import { Chart } from '@common/Chart';
 import MainLayout from '@layout/MainLayout';
+import Image from 'next/image';
 
 const PRODUCT_LIMIT = 5;
 const PRODUCT_OFFSET = 5;
@@ -37,7 +38,7 @@ export const Dashboard = () => {
           <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Dashboard</h1>
         </div>
       </div>
-      <div className='flex justify-center lg:w-2/3 sm:w-3/3 mx-auto'>
+      <div className="flex justify-center lg:w-2/3 sm:w-3/3 mx-auto">
         <Chart className="mb-8 mt-2 w-fit" chartData={data} />
       </div>
       <Pagination pagination={pagination} setPagination={setPagination} PRODUCT_OFFSET={PRODUCT_OFFSET} />
@@ -75,7 +76,7 @@ export const Dashboard = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <img className="h-10 w-10 rounded-full" src={product.images[0]} alt="" />
+                            <Image width={80} height={80} className="h-10 w-10 rounded-full" src={product.images[0]} alt="product image" />
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">{product.title}</div>
@@ -89,16 +90,6 @@ export const Dashboard = () => {
                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">${product.price}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-purple-600 hover:text-purple-900">
-                          Edit
-                        </a>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-purple-600 hover:text-purple-900">
-                          Delete
-                        </a>
-                      </td>
                     </tr>
                   ))}
                 </tbody>

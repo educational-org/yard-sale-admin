@@ -8,14 +8,13 @@ module.exports ={
     },
     extends:[ //recomendaciones clave para entender en el proyecto de next
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
         "plugin:jsx-a11y/recommended",
         "plugin:prettier/recommended",
         "next",
         "next/core-web-vitals",
     ],
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint'],
+    plugins: [],
     rules:{
         semi:["error","always"],
     },
