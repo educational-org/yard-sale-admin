@@ -1,14 +1,16 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { addProduct, updateProduct } from '@services/api/products';
+import { addProduct, updateProduct, uploadImage } from '@services/api/products';
 
 export default function FormProduct({ setAlert, setOpen, product }: any) {
   const formRef: any = useRef(null);
   const router: any = useRouter();
+  const [SelectCategory, setSelectCategory] = useState(true);
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const formData: any = new FormData(formRef.current);
-    const data = {
+    let data = {
       title: formData.get('title'),
       price: parseInt(formData.get('price')),
       description: formData.get('description'),
@@ -17,15 +19,25 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
     };
 
     if (product) {
-      updateProduct(product.id, data)
+      uploadImage(formData.get('images')) //CREACIÓN DE IMAGEN
+      .then((res)=>{
+        data.images = [res.location]
+        updateProduct(product.id, data) //ACTUALIZACIÓN DE PRODUCTO
         .then((res) => {
           router.push('/dashboard/products/');
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
-    } else {
-      addProduct(data)
+      })
+      .catch((error)=>{
+        console.error(error)
+      })
+    }else{
+      uploadImage(formData.get('images')) //CREACIÓN DE LA IMAGEN
+      .then((res)=>{
+        data.images = [res.location]
+        addProduct(data) //DESPUÉS DE AGREGAR NUEVA IMAGEN, SE AGREGA EL PRODUCTO NUEVO
         .then(() => {
           setAlert({
             active: true,
@@ -45,9 +57,20 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
           });
           setOpen(false);
         });
+      })
+      .catch((error)=>{
+        console.error(error)
+      })
     }
   };
 
+  useEffect(()=>{
+    if(product?.category?.id ){
+      setSelectCategory(false)
+    }else{
+      setSelectCategory(true)
+    }
+  },[product])
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
       <div className="overflow-hidden">
@@ -81,9 +104,26 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
                 Category
               </label>
-              {product?.category?.name && (
+              {product?.category?.id && (
                 <select
-                  defaultValue={product?.category?.name}
+                  defaultValue={product?.category?.id}
+                  id="category"
+                  name="category"
+                  autoComplete="category-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="1">Clothes</option>
+                  <option value="2">Electronics</option>
+                  <option value="3">Furniture</option>
+                  <option value="4">Toys</option>
+                  <option value="5">Shoes</option>
+                  <option value="6">Others</option>
+                </select>
+              )}
+
+              {SelectCategory && (
+                <select
+                  defaultValue="6"
                   id="category"
                   name="category"
                   autoComplete="category-name"

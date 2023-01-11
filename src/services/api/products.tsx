@@ -29,4 +29,18 @@ const updateProduct = async (id: any, body: any) => {
   return res.data;
 };
 
-export { addProduct, deleteProduct, updateProduct };
+const uploadImage = async (image:any)=>{
+  const body = {
+    "file":image
+  }
+  const config ={
+    headers:{
+      'Content-Type' : 'multipart/form-data',
+      accept:'*/*'
+    }
+  }
+  const res = await Axios.post(endPoints.files.postFiles,body,config);
+  return res.data
+}
+
+export { addProduct, deleteProduct, updateProduct, uploadImage };
