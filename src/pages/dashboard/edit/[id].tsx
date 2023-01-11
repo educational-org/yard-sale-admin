@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import FormProduct from '@components/FormProduct';
 import Axios from 'axios';
 import endPoints from '@services/api';
+import MainLayout from '@layout/MainLayout';
 
 const Edit = () => {
   const [product, setProduct]: any = useState(null);
@@ -18,7 +19,11 @@ const Edit = () => {
     getProduct();
   }, [router?.isReady]);
 
-  return <FormProduct product={product} />;
+  return (
+    <MainLayout>
+      <FormProduct product={product} />;
+    </MainLayout>
+  );
 };
 
 export default Edit;
