@@ -1,18 +1,15 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@hooks/useAuth';
 import { useRouter } from 'next/router';
+import logo from '@logos/logo_yard_sale_white.svg';
+import Image from 'next/image';
 
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard/', current: true },
+let navigation = [
+  { name: 'Dashboard', href: '/dashboard', current: true },
   { name: 'Productos', href: '/dashboard/products', current: false },
-];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
 ];
 
 function classNames(...classes: any) {
@@ -22,28 +19,38 @@ function classNames(...classes: any) {
 export default function Header() {
   const router = useRouter();
   const auth: any = useAuth();
+
+  useEffect(() => {
+    if (router.pathname == navigation[0].href) {
+      navigation[0].current = true;
+      navigation[1].current = false;
+    } else if (router.pathname == navigation[1].href) {
+      navigation[0].current = false;
+      navigation[1].current = true;
+    }
+  }, [router?.isReady]);
+
   const userData = {
     name: auth?.user?.name,
     email: auth?.user?.mail,
     imageUrl: auth?.user?.avatar,
   };
 
-  const logOutHandler = ()=>{
-    auth.logOut()
-    router.push('/')
-  }
-
+  const logOutHandler = () => {
+    auth.logOut();
+    router.push('/');
+  };
 
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure as="nav" className="bg-slate-700">
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
+                    <Image width={200} className="h-auto w-100" src={logo} alt="Workflow" />
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
@@ -51,7 +58,7 @@ export default function Header() {
                         <a
                           key={item.name}
                           href={item.href}
-                          className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
+                          className={classNames(item.current ? 'bg-purple-400 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
@@ -64,7 +71,7 @@ export default function Header() {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className=" bg-purple-400 p-1 rounded-full text-slate-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -105,42 +112,40 @@ export default function Header() {
               </div>
             </div>
             <Disclosure.Panel className="md:hidden">
+            <div className="flex items-center my-6 px-5">
+              <div className="flex-shrink-0">
+                <img className="h-10 w-10 rounded-full" src={userData.imageUrl} alt="" />
+              </div>
+              <div className="ml-3">
+                <div className="text-base font-medium leading-none text-purple-400">{userData.name}</div>
+                <div className="text-sm font-medium leading-none text-gray-400">{userData.email}</div>
+              </div>
+              <button
+                type="button"
+                className="ml-auto bg-purple-400 flex-shrink-0 p-1 rounded-full text-slate-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              >
+                <span className="sr-only">View notifications</span>
+                <BellIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium')}
+                    className={classNames(item.current ? 'bg-purple-400 text-white' : 'text-white hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium')}
                     aria-current={item.current ? 'page' : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
                 ))}
               </div>
-              <div className="pt-4 pb-3 border-t border-gray-700">
-                <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={userData.imageUrl} alt="" />
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">{userData.name}</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{userData.email}</div>
-                  </div>
-                  <button
-                    type="button"
-                    className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+              <div className="pt-4 pb-3 border-t border-slate-800">
+                <div className="px-2">
+                  <button onClick={logOutHandler} className="block font-bold px-4 py-2 text-sm text-white">
+                    Log Out
                   </button>
-                </div>
-                <div className="mt-3 px-2 space-y-1">
-                  {userNavigation.map((item) => (
-                    <Disclosure.Button key={item.name} as="a" href={item.href} className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
                 </div>
               </div>
             </Disclosure.Panel>

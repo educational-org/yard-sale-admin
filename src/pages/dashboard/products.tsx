@@ -45,41 +45,21 @@ const Products = () => {
   return (
     <MainLayout>
       <Alert alert={alert} handleClose={toggleAlert} />
-      <div className="lg:flex lg:items-center lg:justify-between mb-8">
+      <div className="flex items-center justify-between mb-8">
         <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">List of products</h2>
-          <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-            <div className="mt-2 flex items-center text-sm text-gray-500">
-              <BriefcaseIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-              Full-time
-            </div>
-            <div className="mt-2 flex items-center text-sm text-gray-500">
-              <MapPinIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-              Remote
-            </div>
-            <div className="mt-2 flex items-center text-sm text-gray-500">
-              <CurrencyDollarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-              $120k &ndash; $140k
-            </div>
-            <div className="mt-2 flex items-center text-sm text-gray-500">
-              <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-              Closing on January 9, 2020
-            </div>
-          </div>
+          <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">List of All Products</h1>
         </div>
-        <div className="mt-5 flex lg:mt-0 lg:ml-4">
+        <div className="lg:mt-0 lg:ml-4 flex items-center justify-between">
           <span className="sm:ml-3">
             <button
               onClick={() => setOpen(true)}
               type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex items-center rounded-md border border-transparent bg-purple-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             >
               <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               Add Product
             </button>
           </span>
-
-          {/* Dropdown */}
         </div>
       </div>
       {/* <div className="flex flex-col">
@@ -136,7 +116,7 @@ const Products = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Link href={`/dashboard/edit/${product.id}`} className="text-indigo-600 hover:text-indigo-900">
+                      <Link href={`/dashboard/edit/${product.id}`} className="text-purple-400 hover:text-purple-900">
                         Edit
                       </Link>
                     </td>

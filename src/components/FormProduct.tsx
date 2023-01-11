@@ -85,7 +85,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                 type="text"
                 name="title"
                 id="title"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-purple-400 focus:border-purple-400 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
             <div className="col-span-6 sm:col-span-3">
@@ -97,7 +97,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                 type="number"
                 name="price"
                 id="price"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-purple-400 focus:border-purple-400 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
             <div className="col-span-6">
@@ -110,7 +110,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                   id="category"
                   name="category"
                   autoComplete="category-name"
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-purple-400 focus:border-purple-400 sm:text-sm"
                 >
                   <option value="1">Clothes</option>
                   <option value="2">Electronics</option>
@@ -127,7 +127,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                   id="category"
                   name="category"
                   autoComplete="category-name"
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-purple-400 focus:border-purple-400 sm:text-sm"
                 >
                   <option value="1">Clothes</option>
                   <option value="2">Electronics</option>
@@ -149,7 +149,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                 id="description"
                 autoComplete="description"
                 rows={3}
-                className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="form-textarea mt-1 block w-full mt-1 focus:ring-purple-400 focus:border-purple-400 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
             <div className="col-span-6">
@@ -168,7 +168,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
                     <div className="flex text-sm text-gray-600">
                       <label
                         htmlFor="images"
-                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        className="relative cursor-pointer bg-white rounded-md font-medium text-purple-400 hover:text-purple-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-400"
                       >
                         <span>Upload a file</span>
                         <input defaultValue={product?.images} id="images" name="images" type="file" className="sr-only" />
@@ -185,7 +185,7 @@ export default function FormProduct({ setAlert, setOpen, product }: any) {
         <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <button
             type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-400 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400"
           >
             Save
           </button>

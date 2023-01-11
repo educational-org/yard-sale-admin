@@ -24,6 +24,9 @@
       "@templates/*":["templates/*"],
       "@hooks/*":["hooks/*"],
       "@services/*":["services/*"],
+      "@logos/*":["assets/logos/*"],
+      "@images/*":["assets/images/*"],
+      "@icons/*":["assets/icons/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/dashboard/edit/[id].tsx"],

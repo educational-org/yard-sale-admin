@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { Chart } from '@common/Chart';
 import MainLayout from '@layout/MainLayout';
 
-const PRODUCT_LIMIT = 30;
-const PRODUCT_OFFSET = 30;
+const PRODUCT_LIMIT = 5;
+const PRODUCT_OFFSET = 5;
 
 export const Dashboard = () => {
   const [pagination, setPagination] = useState(PRODUCT_OFFSET); //Inicialización de paginación
@@ -25,14 +25,21 @@ export const Dashboard = () => {
         label: 'Categories',
         data: countOccurrences(categoryCount),
         borderWidth: 2,
-        backgroundColor: ['#ffbb11', '#c0c0c0', '#50AF95', '#f3ba2f', '#2a71d0'],
+        backgroundColor: ['#B983FF', '#0f172a', '#f3ba2f'],
       },
     ],
   };
 
   return (
     <MainLayout>
-      <Chart className="mb-8 mt-2" chartData={data} />
+      <div className="lg:flex lg:items-center lg:justify-between mb-8">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Dashboard</h1>
+        </div>
+      </div>
+      <div className='flex justify-center lg:w-2/3 sm:w-3/3 mx-auto'>
+        <Chart className="mb-8 mt-2 w-fit" chartData={data} />
+      </div>
       <Pagination pagination={pagination} setPagination={setPagination} PRODUCT_OFFSET={PRODUCT_OFFSET} />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -83,12 +90,12 @@ export const Dashboard = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                        <a href="#" className="text-purple-600 hover:text-purple-900">
                           Edit
                         </a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                        <a href="#" className="text-purple-600 hover:text-purple-900">
                           Delete
                         </a>
                       </td>
